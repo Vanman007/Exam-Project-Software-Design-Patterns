@@ -1,23 +1,15 @@
 --Create Database <databasename>
 
 
-Create Table TFood
+Create Table TElectronicsProduct
 (
 nProductId int IDENTITY Primary key,
+cType varchar(255) not null,
 cName varchar(255) not null,
-cDescription varchar(2048),
+cDescription varchar(2048) not null,
 nUnitPrice money not null,
-nStock int not null,
-dExpirationDate date not null
+nStock int not null
 )
 
-Create Table TNonFood
-(
-nProductId int IDENTITY Primary key,
-cName varchar(255) not null,
-cDescription varchar(2048),
-nUnitPrice money not null,
-nStock int not null,
-bFragile bit not null
-)
+
 

@@ -1,6 +1,6 @@
 package exam.project;
 
-public class ShipTypeStrategy {
+public class AirStandardTypeStrategy {
     private float costMultiplier=0;
 
     public float CalculateShippingMultiplier(int km){

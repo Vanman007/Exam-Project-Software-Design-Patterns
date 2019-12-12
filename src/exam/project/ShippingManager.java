@@ -4,20 +4,20 @@ import java.util.ArrayList;
 
 public class ShippingManager {
     private volatile static ShippingManager instance;
-
     private ArrayList<ISubscriber> subscribers = new ArrayList<>();
-    public void subscribe(ISubscriber subscriber) {
-        subscribers.add(subscriber);
-    }
-    public void unsubscribe(ISubscriber subscriber) {
-        subscribers.remove(subscriber);
-    }
 
     private ShippingManager() {
         // Reflection-safe
         if (instance != null) {
             throw new RuntimeException("Use getInstance() method instead.");
         }
+    }
+
+    public void subscribe(ISubscriber subscriber) {
+        subscribers.add(subscriber);
+    }
+    public void unsubscribe(ISubscriber subscriber) {
+        subscribers.remove(subscriber);
     }
 
     public void notifySubscribers() {
@@ -29,7 +29,6 @@ public class ShippingManager {
     public void ship() {
         notifySubscribers();
     }
-
 
     // Singleton proofing
     static ShippingManager getInstance() {
@@ -55,5 +54,4 @@ public class ShippingManager {
     protected Object readResolve() {
         return getInstance();
     }
-
 }

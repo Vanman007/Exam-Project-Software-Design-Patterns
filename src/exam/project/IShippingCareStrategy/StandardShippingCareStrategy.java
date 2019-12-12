@@ -2,14 +2,14 @@ package exam.project.IShippingCareStrategy;
 
 public class StandardShippingCareStrategy implements IShippingCareStrategy {
 
-    private float careCostMultiplier;
+    private double careCostMultiplier;
 
     @Override
-    public float CalculateShippingCare(int shippingMultiplier, float weight, float size) {
+    public double CalculateShippingCare(int shippingMultiplier, double weight, double size) {
         return 0;
     }
 
-    public void setCareCostMultiplier(float careCostMultiplier) {
+    public void setCareCostMultiplier(double careCostMultiplier) {
         this.careCostMultiplier = careCostMultiplier;
     }
 

@@ -28,7 +28,7 @@ public class ShipItemCost {
         this.iShippingCareStrategy = iShippingCareStrategy;
     }
 
-    public float calculateTimeAndCost(float weight, float size, int distance) {
+    public double calculateTimeAndCost(double weight, double size, int distance) {
         return 0;
     }
 }

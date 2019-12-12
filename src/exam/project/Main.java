@@ -1,5 +1,6 @@
 package exam.project;
 
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -7,7 +8,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-	// write your code here
+        Date date = new Date();
+
         System.out.println("Enter number:");
         System.out.println("1: Create new product");
         System.out.println("2: Edit existing product");
@@ -15,7 +17,15 @@ public class Main {
         System.out.println("4: Receive product(s)");
         System.out.println("5: Ship product(s)");
 
-        String command = input.next();
-        System.out.println("You selected: " + command);
+        ShippingManager manager = ShippingManager.getInstance();
+        ISubscriber inventory = new Inventory();
+        ISubscriber smsService = new SMSService();
+        ISubscriber emailService = new EmailService();
+
+        manager.subscribe(inventory);
+        manager.subscribe(smsService);
+        manager.subscribe(emailService);
+
+        manager.ship();
     }
 }

@@ -8,9 +8,9 @@ public class ShipItemCost {
     private IShippingTypeStrategy iShippingTypeStrategy;
     private IShippingCareStrategy iShippingCareStrategy;
 
-    public ShipItemCost(IShippingCareStrategy iShippingCareStrategy, IsShippingTypeStrategy isShippingTypeStrategy) {
+    public ShipItemCost(IShippingCareStrategy iShippingCareStrategy, IShippingTypeStrategy iShippingTypeStrategy) {
         this.iShippingCareStrategy = iShippingCareStrategy;
-        this.iShippingTypeStrategy = isShippingTypeStrategy;
+        this.iShippingTypeStrategy = iShippingTypeStrategy;
     }
 
     public IShippingTypeStrategy getiShippingTypeStrategy() {
@@ -29,7 +29,9 @@ public class ShipItemCost {
         this.iShippingCareStrategy = iShippingCareStrategy;
     }
 
+    // Use shippingTypeStrategy and shippingCareStrategy to calculate cost and return it to client
     public double calculateTimeAndCost(double weight, double size, int distance) {
-        return 0;
+        double shippingMultiplier = this.iShippingTypeStrategy.CalculateShippingMultiplier(distance);
+        return this.iShippingCareStrategy.CalculateShippingCare(shippingMultiplier, weight, size);
     }
 }

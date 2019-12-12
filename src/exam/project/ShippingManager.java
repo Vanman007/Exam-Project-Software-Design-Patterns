@@ -12,6 +12,14 @@ public class ShippingManager {
     public void unsubscribe(ISubscriber subscriber) {
         subscribers.remove(subscriber);
     }
+
+    private ShippingManager() {
+        // Reflection-safe
+        if (instance != null) {
+            throw new RuntimeException("Use getInstance() method instead.");
+        }
+    }
+
     public void notifySubscribers() {
         for (ISubscriber subscriber: subscribers ) {
             subscriber.update();
@@ -48,10 +56,4 @@ public class ShippingManager {
         return getInstance();
     }
 
-    private ShippingManager() {
-        // Reflection-safe
-        if (instance != null) {
-            throw new RuntimeException("Use getInstance() method instead.");
-        }
-    }
 }

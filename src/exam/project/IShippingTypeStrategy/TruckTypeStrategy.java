@@ -1,10 +1,9 @@
-package exam.project;
+package exam.project.IShippingTypeStrategy;
 
-public class AirStandardTypeStrategy {
+public class TruckTypeStrategy {
     private float costMultiplier=0;
 
     public float CalculateShippingMultiplier(int km){
         return costMultiplier;
     }
-
 }

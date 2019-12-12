@@ -1,6 +1,7 @@
 package exam.project;
 
 import exam.project.IShippingCareStrategy.IShippingCareStrategy;
+import exam.project.IShippingTypeStrategy.IShippingTypeStrategy;
 
 public class ShipItemCost {
 

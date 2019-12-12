@@ -1,4 +1,4 @@
-package exam.project;
+package exam.project.IShippingTypeStrategy;
 
 public class AirExpressTypeStrategy {
     private float costMultiplier=0;

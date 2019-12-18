@@ -11,11 +11,13 @@ public class Order {
     private ArrayList<ElectronicsProduct> items;
     private IShippingTypeStrategy shippingTypeStrategy;
     private IShippingCareStrategy shippingCareStrategy;
+    private Integer distance;
 
     public Order(ArrayList<ElectronicsProduct> items, IShippingTypeStrategy shippingTypeStrategy,
-                 IShippingCareStrategy shippingCareStrategy) {
+                 IShippingCareStrategy shippingCareStrategy, Integer distance) {
         this.items = items;
         this.shippingTypeStrategy = shippingTypeStrategy;
         this.shippingCareStrategy = shippingCareStrategy;
+        this.distance = distance;
     }
 }

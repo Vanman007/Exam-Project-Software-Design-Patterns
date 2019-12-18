@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class ShippingManager {
     private volatile static ShippingManager instance;
+    private ShipItemCost shipItemCost;
     private ArrayList<ISubscriber> subscribers = new ArrayList<>();
 
     private ShippingManager() {

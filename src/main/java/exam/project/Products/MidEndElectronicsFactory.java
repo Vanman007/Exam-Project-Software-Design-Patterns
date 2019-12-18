@@ -12,7 +12,7 @@ public class MidEndElectronicsFactory implements IAbstractElectronicsFactory {
     }
 
     // Singleton proofing
-    static MidEndElectronicsFactory getInstance() {
+    public static MidEndElectronicsFactory getInstance() {
         // Lazy-initialization
         if (instance == null) {
             // Thread-safe

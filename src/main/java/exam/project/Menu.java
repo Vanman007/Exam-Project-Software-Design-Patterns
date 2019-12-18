@@ -1,6 +1,6 @@
 package exam.project;
 
-import exam.project.Products.ElectronicsProduct;
+import exam.project.Products.*;
 
 import java.util.ArrayList;
 
@@ -53,6 +53,32 @@ public class Menu {
         return MenuState.EXITING;
     }
 
+    public static ElectronicsProduct getProductObjectFromSelection(String stockToIncrease) {
+        IAbstractElectronicsFactory factory;
+        switch (stockToIncrease) {
+            case "1":
+                factory = DiscountElectronicsFactory.getInstance();
+                return factory.createTV();
+            case "2":
+                factory = MidEndElectronicsFactory.getInstance();
+                return factory.createTV();
+            case "3":
+                factory = DesignerElectronicsFactory.getInstance();
+                return factory.createTV();
+            case "4":
+                factory = DiscountElectronicsFactory.getInstance();
+                return factory.createRadio();
+            case "5":
+                factory = MidEndElectronicsFactory.getInstance();
+                return factory.createRadio();
+            case "6":
+                factory = DesignerElectronicsFactory.getInstance();
+                return factory.createRadio();
+            default:
+                return null;
+        }
+    }
+
     public static String getProductFromSelection(String stockToIncrease) {
         switch (stockToIncrease) {
             case "1":
@@ -85,7 +111,7 @@ public class Menu {
         return increaseInt;
     }
 
-    public static void addStock(int increase, String product) {
+    public static void addStock(int increase, ElectronicsProduct product, String type) {
         // TODO
         System.out.println("Add " + increase + " to " + product + " stock.");
     }

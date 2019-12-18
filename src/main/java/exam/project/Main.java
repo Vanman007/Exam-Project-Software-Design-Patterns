@@ -32,14 +32,16 @@ public class Main {
 
             while (menuState == MenuState.ADD_PRODUCT) {
                 Menu.printMenu(MenuState.ADD_PRODUCT);
-                String productToAdd = Menu.getProductFromSelection(input.next());
-                if (productToAdd == null) {
+                String command = input.next();
+                String productToAddType = Menu.getProductFromSelection(command);
+                if (productToAddType == null) {
                     System.out.println("-----------");
                     System.out.println("Invalid command. Try again:");
                 } else {
                     System.out.println("How many to add to stock?");
                     int stockIncrease = Menu.getNumberFromInput(input.next());
-                    Menu.addStock(stockIncrease, productToAdd);
+                    ElectronicsProduct productToAdd = Menu.getProductObjectFromSelection(command);
+                    Menu.addStock(stockIncrease, productToAdd, productToAddType);
                     menuState = MenuState.OPTION_SELECTION;
                 }
             }

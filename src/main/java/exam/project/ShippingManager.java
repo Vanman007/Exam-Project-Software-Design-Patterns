@@ -1,7 +1,6 @@
 package exam.project;
 
 import exam.project.Products.*;
-import exam.project.Unused.ISubscriber;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +9,7 @@ import java.util.Map;
 public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
 
     private volatile static ShippingManager instance;
-    private ShipItemCost shipItemCost;
+    private ShipItem shipItem;
     private Map<String, Integer> currentInventoryStatus;
     private ArrayList<Order> currentOrderStatus;
 

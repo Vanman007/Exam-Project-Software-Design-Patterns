@@ -21,14 +21,14 @@ public class ShippingManager {
         subscribers.remove(subscriber);
     }
 
-    public void notifySubscribers(Order order) {
+    public void notifySubscribers() {
         for (ISubscriber subscriber: subscribers ) {
-            subscriber.update(order);
+            subscriber.update();
         }
     }
 
-    public void ship(Order order) {
-        notifySubscribers(order);
+    public void ship() {
+        notifySubscribers();
     }
 
     // Singleton proofing

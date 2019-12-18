@@ -3,11 +3,15 @@ package exam.project;
 import exam.project.Unused.ISubscriber;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-public class ShippingManager {
+public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
+
     private volatile static ShippingManager instance;
     private ShipItemCost shipItemCost;
-    private ArrayList<ISubscriber> subscribers = new ArrayList<>();
+    private Map<String, Integer> currentInventoryStatus;
+
+//    private ArrayList<ISubscriber> subscribers = new ArrayList<>();
 
     private ShippingManager() {
         // Reflection-safe
@@ -16,25 +20,8 @@ public class ShippingManager {
         }
     }
 
-    public void subscribe(ISubscriber subscriber) {
-        subscribers.add(subscriber);
-    }
-    public void unsubscribe(ISubscriber subscriber) {
-        subscribers.remove(subscriber);
-    }
-
-    public void notifySubscribers(Order order) {
-        for (ISubscriber subscriber: subscribers ) {
-            subscriber.update(order);
-        }
-    }
-
-    public void ship(Order order) {
-        notifySubscribers(order);
-    }
-
     // Singleton proofing
-    static ShippingManager getInstance() {
+    public static ShippingManager getInstance() {
         // Lazy-initialization
         if (instance == null) {
             // Thread-safe
@@ -57,4 +44,32 @@ public class ShippingManager {
     protected Object readResolve() {
         return getInstance();
     }
+
+    @Override
+    public void inventoryUpdate(Inventory inventory) {
+        currentInventoryStatus = inventory.getInventoryState();
+    }
+
+    @Override
+    public void orderBookUpdate(OrderBook orderBook) {
+
+    }
+
+//    public void subscribe(ISubscriber subscriber) {
+//        subscribers.add(subscriber);
+//    }
+//    public void unsubscribe(ISubscriber subscriber) {
+//        subscribers.remove(subscriber);
+//    }
+
+//    public void notifySubscribers(Order order) {
+//        for (ISubscriber subscriber: subscribers ) {
+//            subscriber.update(order);
+//        }
+//    }
+//
+//    public void ship(Order order) {
+//        notifySubscribers(order);
+//    }
+
 }

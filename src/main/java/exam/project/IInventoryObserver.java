@@ -2,6 +2,6 @@ package exam.project;
 
 public interface IInventoryObserver {
 
-    void inventoryUpdate();
+    void inventoryUpdate(Inventory inventory);
 
 }

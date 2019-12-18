@@ -1,7 +1,8 @@
 package exam.project;
 
+import exam.project.Products.*;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Inventory implements ISubscriber {
 
@@ -70,7 +71,7 @@ public class Inventory implements ISubscriber {
     }
 
     @Override
-    public void update() {
+    public void update(Order order) {
         System.out.println("Update on Inventory");
     }
 

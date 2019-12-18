@@ -1,5 +1,7 @@
 package exam.project;
 
+import exam.project.IShippingCareStrategy.IShippingCareStrategy;
+import exam.project.IShippingTypeStrategy.IShippingTypeStrategy;
 import exam.project.Products.*;
 
 import java.util.ArrayList;
@@ -127,5 +129,23 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
 //    public void ship(Order order) {
 //        notifySubscribers(order);
 //    }
+//
+//
+
+    public void shipOrder(Order order) {
+        double totalCost = 0.0;
+        IShippingTypeStrategy thisShippingTypeStrategy = order.getShippingTypeStrategy();
+        IShippingCareStrategy thisShippingCareStrategy = order.getShippingCareStrategy();
+        this.shipItem = new ShipItem(thisShippingCareStrategy, thisShippingTypeStrategy);
+        Integer thisDistance = order.getDistance();
+        ArrayList<ElectronicsProduct> thisItemsList = order.getItems();
+        for (ElectronicsProduct electronicsProduct: thisItemsList) {
+            totalCost = totalCost + this.shipItem.calculateTimeAndCost(electronicsProduct.getWeight(),
+                    electronicsProduct.getSize(),
+                    thisDistance);
+        }
+        System.out.println("\nAn order has been shipped! Total cost for shipping was: " + totalCost + "\n");
+    }
+
 
 }

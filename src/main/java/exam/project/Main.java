@@ -14,9 +14,9 @@ public class Main {
             System.out.println("Enter number:");
             System.out.println("1: Increment stock of product");
             System.out.println("2: Create shipping order");
+            System.out.println("Exit: exit the application");
 
-            String command =  "1";
-            // input.next();
+            String command =  input.next();
             switch (command) {
                 case "1":
                     System.out.println("Increment stock");
@@ -38,6 +38,7 @@ public class Main {
             while(selectedCommand && runApplication) {
                 switch (command) {
                     case "1":
+                        System.out.println("Creating product");
                         System.out.println("Enter type:");
                         System.out.println("1: TV");
                         System.out.println("2: Radio");
@@ -57,6 +58,7 @@ public class Main {
                     System.out.println("1: Low-tier");
                     System.out.println("2: Mid-tier");
                     System.out.println("3: High-tier");
+                    System.out.println("Exit: Return to main menu");
 
                     while (!tierTypeSelected && runApplication) {
                         String tierType = input.next();
@@ -74,8 +76,9 @@ public class Main {
                                 tierTypeSelected = true;
                                 break;
                             case "exit":
-                                System.out.println("Exiting...");
-                                runApplication = false;
+                                System.out.println("Returning to main menu");
+                                tierTypeSelected = true;
+                                selectedCommand = false;
                                 break;
                             default:
                                 System.out.println("No command found");

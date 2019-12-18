@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class JavaMailUtil {
-    public static void sendMail(String recepient) throws AddressException, MessagingException{
+    public static void sendMail(String recepient) throws MessagingException{
         System.out.println("Sending Message");
         Properties properties = new Properties();
         properties.put("mail.smtp.auth","true");

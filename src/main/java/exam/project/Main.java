@@ -1,6 +1,5 @@
 package exam.project;
 
-import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -16,7 +15,8 @@ public class Main {
             System.out.println("1: Increment stock of product");
             System.out.println("2: Create shipping order");
 
-            String command = input.next();
+            String command =  "1";
+            // input.next();
             switch (command) {
                 case "1":
                     System.out.println("Increment stock");

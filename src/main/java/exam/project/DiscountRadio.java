@@ -1,4 +1,4 @@
-package exam.project.Products;
+package exam.project;
 
 public class DiscountRadio extends Radio {
 

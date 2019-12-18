@@ -1,8 +1,7 @@
 package exam.project;
 
-import exam.project.Products.*;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Inventory implements ISubscriber {
     //private HashMap<ElectronicsProduct> products = new HashMap();
@@ -14,13 +13,12 @@ public class Inventory implements ISubscriber {
     private ArrayList<MidEndTV> midEndTVs = new ArrayList<>();
     private ArrayList<DesignerTV> designerTVs = new ArrayList<>();
 
-    public void decrementStock(String type) {
-
+    @Override
+    public void update() {
+        System.out.println("Update on Inventory");
     }
 
-    @Override
-    public void update(Order order) {
-        System.out.println("Update on Inventory");
+    public void decrementStock(String type) {
 
     }
 }

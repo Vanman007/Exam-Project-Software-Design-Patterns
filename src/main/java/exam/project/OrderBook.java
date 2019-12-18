@@ -10,4 +10,8 @@ public class OrderBook {
         orderBook.add(order);
     }
 
+    public void removeOrder(Order order) {
+        orderBook.remove(order);
+    }
+
 }

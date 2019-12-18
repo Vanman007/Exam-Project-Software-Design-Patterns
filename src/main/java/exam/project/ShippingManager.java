@@ -1,5 +1,7 @@
 package exam.project;
 
+import exam.project.Unused.ISubscriber;
+
 import java.util.ArrayList;
 
 public class ShippingManager {

@@ -1,12 +1,12 @@
 package exam.project;
 
 import exam.project.Products.*;
+import exam.project.Unused.ISubscriber;
 
 import java.util.ArrayList;
 
-public class Inventory implements ISubscriber {
-
-    //private HashMap<ElectronicsProduct> products = new HashMap();
+public class Inventory{
+    
     private ArrayList<DiscountRadio> discountRadios = new ArrayList<>();
     private ArrayList<MidEndRadio> midEndRadios = new ArrayList<>();
     private ArrayList<DesignerRadio> designerRadios = new ArrayList<>();
@@ -15,25 +15,25 @@ public class Inventory implements ISubscriber {
     private ArrayList<MidEndTV> midEndTVs = new ArrayList<>();
     private ArrayList<DesignerTV> designerTVs = new ArrayList<>();
 
-    public void addProduct(ElectronicsProduct electronicsProduct, String type) {
+    public void addProduct(ElectronicsProduct electronicsProduct) {
 
-        switch (type){
-            case "Discount TV":
+        switch (electronicsProduct.getClass().getSimpleName()){
+            case "DiscountTV":
                 discountTVs.add((DiscountTV)electronicsProduct);
             break;
-            case "Discount Radio":
+            case "DiscountRadio":
                 discountRadios.add((DiscountRadio) electronicsProduct);
             break;
-            case "MidEnd TV":
+            case "MidEndTV":
                 midEndTVs.add((MidEndTV) electronicsProduct);
             break;
-            case "MidEnd Radio":
+            case "MidEndRadio":
                 midEndRadios.add((MidEndRadio) electronicsProduct);
             break;
-            case "Designer TV":
+            case "DesignerTV":
                 designerTVs.add((DesignerTV) electronicsProduct);
             break;
-            case "Designer Radio":
+            case "DesignerRadio":
                 designerRadios.add((DesignerRadio) electronicsProduct);
             break;
             default:
@@ -41,26 +41,28 @@ public class Inventory implements ISubscriber {
             break;
         }
 
+
+
     }
 
-    public void removeProduct(String type){
-        switch (type){
-            case "Discount TV":
+    public void removeProduct(ElectronicsProduct electronicsProduct){
+        switch (electronicsProduct.getClass().getSimpleName()){
+            case "DiscountTV":
                 discountTVs.remove(0);
                 break;
-            case "Discount Radio":
+            case "DiscountRadio":
                 discountRadios.remove(0);
                 break;
-            case "MidEnd TV":
+            case "MidEndTV":
                 midEndTVs.remove(0);
                 break;
-            case "MidEnd Radio":
+            case "MidEndRadio":
                 midEndRadios.remove(0);
                 break;
-            case "Designer TV":
+            case "DesignerTV":
                 designerTVs.remove(0);
                 break;
-            case "Designer Radio":
+            case "DesignerRadio":
                 designerRadios.remove(0);
                 break;
             default:
@@ -70,12 +72,4 @@ public class Inventory implements ISubscriber {
 
     }
 
-    @Override
-    public void update(Order order) {
-        System.out.println("Update on Inventory");
-    }
-
-    public void decrementStock(String type) {
-
-    }
 }

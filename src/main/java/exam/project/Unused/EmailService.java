@@ -1,4 +1,6 @@
-package exam.project;
+package exam.project.Unused;
+
+import exam.project.Order;
 
 public class EmailService implements ISubscriber {
     @Override

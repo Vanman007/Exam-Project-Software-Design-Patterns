@@ -1,12 +1,12 @@
 package exam.project;
 
 import exam.project.Products.*;
+import exam.project.Unused.ISubscriber;
 
 import java.util.ArrayList;
 
-public class Inventory implements ISubscriber {
-
-    //private HashMap<ElectronicsProduct> products = new HashMap();
+public class Inventory{
+    
     private ArrayList<DiscountRadio> discountRadios = new ArrayList<>();
     private ArrayList<MidEndRadio> midEndRadios = new ArrayList<>();
     private ArrayList<DesignerRadio> designerRadios = new ArrayList<>();
@@ -41,6 +41,8 @@ public class Inventory implements ISubscriber {
             break;
         }
 
+
+
     }
 
     public void removeProduct(ElectronicsProduct electronicsProduct){
@@ -68,11 +70,6 @@ public class Inventory implements ISubscriber {
                 break;
         }
 
-    }
-
-    @Override
-    public void update(Order order) {
-        System.out.println("Update on Inventory");
     }
 
 }

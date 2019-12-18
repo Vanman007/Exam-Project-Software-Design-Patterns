@@ -2,6 +2,6 @@ package exam.project;
 
 public interface IOrderBookObserver {
 
-    void orderBookObserver();
+    void orderBookUpdate(OrderBook orderBook);
 
 }

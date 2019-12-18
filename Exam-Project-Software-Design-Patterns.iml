@@ -14,7 +14,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/IdeaProjects/EmailNotifyer/src/com/example/helloworld/activation.jar!/" />
+          <root url="jar://$MODULE_DIR$/../EmailNotifyer/src/com/example/helloworld/activation.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -23,7 +23,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/IdeaProjects/EmailNotifyer/src/com/example/helloworld/javax.mail.jar!/" />
+          <root url="jar://$MODULE_DIR$/../EmailNotifyer/src/com/example/helloworld/javax.mail.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

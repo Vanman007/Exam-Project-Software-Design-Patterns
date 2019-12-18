@@ -25,7 +25,7 @@ public class Menu {
                 System.out.println("Which product do you wish to increase?");
                 printProductList();
                 break;
-            case SHIP_ORDER:
+            case ADD_ORDER:
                 System.out.println("Which products do you wish to ship?");
                 printProductList();
                 System.out.println("7: All done - ship it!");
@@ -45,12 +45,60 @@ public class Menu {
                 case "1":
                     return MenuState.ADD_PRODUCT;
                 case "2":
-                    return MenuState.SHIP_ORDER;
+                    return MenuState.ADD_ORDER;
                 default:
                     return MenuState.OPTION_SELECTION;
             }
         }
         return MenuState.EXITING;
+    }
+
+    public static ArrayList<ElectronicsProduct> getProductsForOrder(ElectronicsProduct product, IAbstractElectronicsFactory factory,
+                                                                    int quantity, String command) {
+        ArrayList<ElectronicsProduct> products = new ArrayList<>();
+        switch (command) {
+            case "1":
+            case "2":
+            case "3":
+                for (int i = 0; i < quantity; i++) {
+                    products.add(factory.createTV());
+                }
+                break;
+            case "4":
+            case "5":
+            case "6":
+                for (int i = 0; i < quantity; i++) {
+                    products.add(factory.createRadio());
+                }
+                break;
+            default:
+                return null;
+        }
+        return products;
+    }
+
+    public static ArrayList<ElectronicsProduct> getProductForOrder(ElectronicsProduct product, IAbstractElectronicsFactory factory,
+                                                                    int quantity, String command) {
+        ArrayList<ElectronicsProduct> products = new ArrayList<>();
+        switch (command) {
+            case "1":
+            case "2":
+            case "3":
+                for (int i = 0; i < quantity; i++) {
+                    products.add(factory.createTV());
+                }
+                break;
+            case "4":
+            case "5":
+            case "6":
+                for (int i = 0; i < quantity; i++) {
+                    products.add(factory.createRadio());
+                }
+                break;
+            default:
+                return null;
+        }
+        return products;
     }
 
     public static ElectronicsProduct getProductObjectFromSelection(String stockToIncrease) {
@@ -74,6 +122,36 @@ public class Menu {
             case "6":
                 factory = DesignerElectronicsFactory.getInstance();
                 return factory.createRadio();
+            default:
+                return null;
+        }
+    }
+
+    public static boolean isValidInput(String command) {
+        switch (command) {
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static IAbstractElectronicsFactory getAppropriateFactory(String command) {
+        switch (command) {
+            case "1":
+            case "4":
+                return DiscountElectronicsFactory.getInstance();
+            case "2":
+            case "5":
+                return MidEndElectronicsFactory.getInstance();
+            case "3":
+            case "6":
+                return DesignerElectronicsFactory.getInstance();
             default:
                 return null;
         }
@@ -111,9 +189,12 @@ public class Menu {
         return increaseInt;
     }
 
-    public static void addStock(int increase, ElectronicsProduct product, String type) {
+    public static void addStock(int increase, ElectronicsProduct product, Inventory inventory) {
         // TODO
-        System.out.println("Add " + increase + " to " + product + " stock.");
+        for (int i = 0; i < increase; i++) {
+            inventory.addProduct(product);
+        }
+        System.out.println("Add " + product.getClass().getSimpleName() + " to " + " stock.");
     }
 
     public static void addToOrder(int increase, String product, ArrayList<ElectronicsProduct> products) {
@@ -122,7 +203,8 @@ public class Menu {
     }
 
     // TODO
-    public static void shipIt() {
+    public static void shipIt(TEMP_Order order) {
+        System.out.println(order);
         System.out.println("Shipping it!");
     }
 }

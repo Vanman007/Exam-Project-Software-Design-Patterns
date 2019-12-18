@@ -177,12 +177,12 @@ public class Menu {
     }
 
     // TODO
-    public static void addOrder(TEMP_Order order) {
+    public static void addOrder(Order order) {
         System.out.println("Order:");
-        System.out.println("Size: " + order.products.size());
-        System.out.println("Type: " + order.typeStrategy.getClass().getSimpleName());
-        System.out.println("Care: " + order.careStrategy.getClass().getSimpleName());
-        System.out.println("Distance: " + order.distance);
+        System.out.println("Size: " + order.getItems().size());
+        System.out.println("Type: " + order.getShippingTypeStrategy().getClass().getSimpleName());
+        System.out.println("Care: " + order.getShippingCareStrategy().getClass().getSimpleName());
+        System.out.println("Distance: " + order.getDistance());
         System.out.println("Shipping it!");
     }
 }

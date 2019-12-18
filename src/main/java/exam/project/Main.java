@@ -25,7 +25,7 @@ public class Main {
         boolean runApplication = true;
         MenuState menuState = MenuState.OPTION_SELECTION;
 
-        TEMP_Order order = new TEMP_Order();
+        Order order = new Order();
 
         while (runApplication) {
             while (menuState == MenuState.OPTION_SELECTION) {
@@ -76,6 +76,7 @@ public class Main {
                     System.out.println("How many to add to stock?");
                     String commandSelection = input.next();
                     int numberOfProducts = Menu.getNumberFromInput(commandSelection);
+                    System.out.println("X" + numberOfProducts);
                     if (numberOfProducts == 1) {
                         switch (command) {
                             case "1":
@@ -107,7 +108,9 @@ public class Main {
                                 break;
                         }
                     }
-                    order.products.addAll(products);
+                    ArrayList<ElectronicsProduct> orderItems = order.getItems();
+                    orderItems.addAll(products);
+                    order.setItems(orderItems);
                 }
             }
 
@@ -122,7 +125,7 @@ public class Main {
                     menuState = MenuState.EXITING;
                     break;
                 } else {
-                    order.typeStrategy = typeStrategy;
+                    order.setShippingTypeStrategy(typeStrategy);
                     menuState = MenuState.ADD_CARE_STRATEGY;
                     break;
                 }
@@ -139,7 +142,7 @@ public class Main {
                     menuState = MenuState.EXITING;
                     break;
                 } else {
-                    order.careStrategy = careStrategy;
+                    order.setShippingCareStrategy(careStrategy);
                     menuState = MenuState.ADD_DISTANCE;
                     break;
                 }
@@ -156,9 +159,9 @@ public class Main {
                     menuState = MenuState.EXITING;
                     break;
                 } else {
-                    order.distance = distance;
+                    order.setDistance(distance);
                     Menu.addOrder(order);
-                    order = new TEMP_Order();
+                    order = new Order();
                     menuState = MenuState.OPTION_SELECTION;
                     break;
                 }

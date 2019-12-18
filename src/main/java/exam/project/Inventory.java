@@ -53,6 +53,16 @@ public class Inventory{
         return getInstance();
     }
 
+    public void addObserver(IInventoryObserver observer){
+        inventoryObservers.add(observer);
+    }
+
+    public void notifyObservers(){
+        for(IInventoryObserver observer: inventoryObservers){
+            observer.inventoryUpdate(this);
+        }
+    }
+
     public void addProduct(ElectronicsProduct electronicsProduct) {
 
         switch (electronicsProduct.getClass().getSimpleName()){
@@ -108,17 +118,10 @@ public class Inventory{
                 break;
         }
 
+        notifyObservers();
+
     }
 
-    public void addObserver(IInventoryObserver observer){
-        inventoryObservers.add(observer);
-    }
-
-    public void notifyObservers(){
-        for(IInventoryObserver observer: inventoryObservers){
-            observer.inventoryUpdate(this);
-        }
-    }
 
     public Map<String,Integer> getInventoryState(){
 

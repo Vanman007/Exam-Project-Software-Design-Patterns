@@ -20,4 +20,8 @@ public class Order {
         this.shippingCareStrategy = shippingCareStrategy;
         this.distance = distance;
     }
+
+    public ArrayList<ElectronicsProduct> getItems() {
+        return items;
+    }
 }

@@ -1,6 +1,6 @@
 package exam.project.IShippingTypeStrategy;
 
-public class TruckTypeStrategy {
+public class TruckTypeStrategy implements IShippingTypeStrategy {
 
     private double costMultiplier = 1.0;
 

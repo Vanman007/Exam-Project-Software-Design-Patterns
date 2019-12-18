@@ -12,7 +12,7 @@ public class DiscountElectronicsFactory implements IAbstractElectronicsFactory {
     }
 
     // Singleton proofing
-    static DiscountElectronicsFactory getInstance() {
+    public static DiscountElectronicsFactory getInstance() {
         // Lazy-initialization
         if (instance == null) {
             // Thread-safe

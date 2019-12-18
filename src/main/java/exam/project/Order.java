@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Order {
 
-    private ArrayList<ElectronicsProduct> items;
+    private ArrayList<ElectronicsProduct> items = new ArrayList<>();
     private IShippingTypeStrategy shippingTypeStrategy;
     private IShippingCareStrategy shippingCareStrategy;
     private Integer distance;
@@ -21,7 +21,37 @@ public class Order {
         this.distance = distance;
     }
 
+    public Order() {}
+
     public ArrayList<ElectronicsProduct> getItems() {
         return items;
+    }
+
+    public void setItems(ArrayList<ElectronicsProduct> items) {
+        this.items = items;
+    }
+
+    public IShippingTypeStrategy getShippingTypeStrategy() {
+        return shippingTypeStrategy;
+    }
+
+    public void setShippingTypeStrategy(IShippingTypeStrategy shippingTypeStrategy) {
+        this.shippingTypeStrategy = shippingTypeStrategy;
+    }
+
+    public IShippingCareStrategy getShippingCareStrategy() {
+        return shippingCareStrategy;
+    }
+
+    public void setShippingCareStrategy(IShippingCareStrategy shippingCareStrategy) {
+        this.shippingCareStrategy = shippingCareStrategy;
+    }
+
+    public Integer getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Integer distance) {
+        this.distance = distance;
     }
 }

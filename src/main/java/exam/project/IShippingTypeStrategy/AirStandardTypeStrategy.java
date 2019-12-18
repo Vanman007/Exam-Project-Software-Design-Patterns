@@ -1,6 +1,6 @@
 package exam.project.IShippingTypeStrategy;
 
-public class AirStandardTypeStrategy {
+public class AirStandardTypeStrategy implements IShippingTypeStrategy {
 
     private double costMultiplier = 2.0;
 

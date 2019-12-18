@@ -1,4 +1,4 @@
-package exam.project;
+package exam.project.Products;
 
 public interface IAbstractElectronicsFactory {
 

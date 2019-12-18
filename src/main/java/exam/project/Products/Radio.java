@@ -1,6 +1,6 @@
-package exam.project;
+package exam.project.Products;
 
-import java.util.ArrayList;
+import exam.project.Products.ElectronicsProduct;
 
 public abstract class Radio extends ElectronicsProduct {
 

@@ -1,5 +1,5 @@
 package exam.project;
 
 public interface ISubscriber {
-    void update();
+    void update(Order order);
 }

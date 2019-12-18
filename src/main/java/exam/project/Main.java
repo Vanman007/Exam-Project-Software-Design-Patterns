@@ -1,5 +1,7 @@
 package exam.project;
 
+import exam.project.IShippingCareStrategy.IShippingCareStrategy;
+import exam.project.IShippingTypeStrategy.IShippingTypeStrategy;
 import exam.project.Products.ElectronicsProduct;
 import exam.project.Products.IAbstractElectronicsFactory;
 
@@ -10,6 +12,9 @@ enum MenuState {
     OPTION_SELECTION,
     ADD_PRODUCT,
     ADD_ORDER,
+    ADD_TYPE_STRATEGY,
+    ADD_CARE_STRATEGY,
+    ADD_DISTANCE,
     EXITING
 }
 
@@ -39,7 +44,7 @@ public class Main {
                 if (command.equals("exit")) {
                     menuState = MenuState.EXITING;
                     break;
-                } else if (Menu.isValidInput(command)) {
+                } else if (!Menu.isValidInput(command)) {
                     System.out.println("-----------");
                     System.out.println("Invalid command. Try again:");
                 } else {
@@ -53,14 +58,13 @@ public class Main {
 
             while (menuState == MenuState.ADD_ORDER) {
                 ArrayList<ElectronicsProduct> products = new ArrayList<>();
-                Menu.printMenu((MenuState.ADD_ORDER));
+                Menu.printMenu(MenuState.ADD_ORDER);
                 String command = input.next();
                 if (command.equals("exit")) {
                     menuState = MenuState.EXITING;
                     break;
                 } else if (command.equals("7")) {
-                    Menu.shipIt(order);
-                    menuState = MenuState.OPTION_SELECTION;
+                    menuState = MenuState.ADD_TYPE_STRATEGY;
                     break;
                 }
                 IAbstractElectronicsFactory factory = Menu.getAppropriateFactory(command);
@@ -104,6 +108,59 @@ public class Main {
                         }
                     }
                     order.products.addAll(products);
+                }
+            }
+
+            while (menuState == MenuState.ADD_TYPE_STRATEGY) {
+                Menu.printMenu(MenuState.ADD_TYPE_STRATEGY);
+                String command = input.next();
+                IShippingTypeStrategy typeStrategy = Menu.getAppropriateShippingTypeStrategy(command);
+                if (typeStrategy == null) {
+                    System.out.println("-----------");
+                    System.out.println("Invalid command. Try again:");
+                } else if (command.equals("exit")) {
+                    menuState = MenuState.EXITING;
+                    break;
+                } else {
+                    order.typeStrategy = typeStrategy;
+                    menuState = MenuState.ADD_CARE_STRATEGY;
+                    break;
+                }
+            }
+
+            while (menuState == MenuState.ADD_CARE_STRATEGY) {
+                Menu.printMenu(MenuState.ADD_CARE_STRATEGY);
+                String command = input.next();
+                IShippingCareStrategy careStrategy = Menu.getAppropriateShippingCareStrategy(command);
+                if (careStrategy == null) {
+                    System.out.println("-----------");
+                    System.out.println("Invalid command. Try again:");
+                } else if (command.equals("exit")) {
+                    menuState = MenuState.EXITING;
+                    break;
+                } else {
+                    order.careStrategy = careStrategy;
+                    menuState = MenuState.ADD_DISTANCE;
+                    break;
+                }
+            }
+
+            while (menuState == MenuState.ADD_DISTANCE) {
+                Menu.printMenu(MenuState.ADD_DISTANCE);
+                String command = input.next();
+                int distance = Menu.getNumberFromInput(command);
+                if (distance < 0) {
+                    System.out.println("-----------");
+                    System.out.println("Invalid command. Try again:");
+                } else if (command.equals("exit")) {
+                    menuState = MenuState.EXITING;
+                    break;
+                } else {
+                    order.distance = distance;
+                    Menu.addOrder(order);
+                    order = new TEMP_Order();
+                    menuState = MenuState.OPTION_SELECTION;
+                    break;
                 }
             }
 

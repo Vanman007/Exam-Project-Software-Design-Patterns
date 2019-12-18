@@ -10,6 +10,7 @@ public class TEMP_Order {
     ArrayList<ElectronicsProduct> products = new ArrayList<>();
     IShippingCareStrategy careStrategy;
     IShippingTypeStrategy typeStrategy;
+    int distance;
 
     public TEMP_Order() {
 

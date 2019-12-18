@@ -1,8 +1,8 @@
 package exam.project;
 
+import exam.project.IShippingCareStrategy.*;
+import exam.project.IShippingTypeStrategy.*;
 import exam.project.Products.*;
-
-import java.util.ArrayList;
 
 public class Menu {
     private static void printProductList() {
@@ -30,6 +30,23 @@ public class Menu {
                 printProductList();
                 System.out.println("7: All done - ship it!");
                 break;
+            case ADD_TYPE_STRATEGY:
+                System.out.println("Choose shipping type:");
+                System.out.println("1: Air Standard");
+                System.out.println("2: Air Express");
+                System.out.println("3: Ship");
+                System.out.println("4: Truck");
+                break;
+            case ADD_CARE_STRATEGY:
+                System.out.println("Choose care type:");
+                System.out.println("1: Haphazard");
+                System.out.println("2: Standard");
+                System.out.println("3: Careful");
+                System.out.println("4: Super Fragile");
+                break;
+            case ADD_DISTANCE:
+                System.out.println("Choose distance:");
+                break;
             default:
                 System.out.println("Unknown state.");
                 break;
@@ -51,54 +68,6 @@ public class Menu {
             }
         }
         return MenuState.EXITING;
-    }
-
-    public static ArrayList<ElectronicsProduct> getProductsForOrder(ElectronicsProduct product, IAbstractElectronicsFactory factory,
-                                                                    int quantity, String command) {
-        ArrayList<ElectronicsProduct> products = new ArrayList<>();
-        switch (command) {
-            case "1":
-            case "2":
-            case "3":
-                for (int i = 0; i < quantity; i++) {
-                    products.add(factory.createTV());
-                }
-                break;
-            case "4":
-            case "5":
-            case "6":
-                for (int i = 0; i < quantity; i++) {
-                    products.add(factory.createRadio());
-                }
-                break;
-            default:
-                return null;
-        }
-        return products;
-    }
-
-    public static ArrayList<ElectronicsProduct> getProductForOrder(ElectronicsProduct product, IAbstractElectronicsFactory factory,
-                                                                    int quantity, String command) {
-        ArrayList<ElectronicsProduct> products = new ArrayList<>();
-        switch (command) {
-            case "1":
-            case "2":
-            case "3":
-                for (int i = 0; i < quantity; i++) {
-                    products.add(factory.createTV());
-                }
-                break;
-            case "4":
-            case "5":
-            case "6":
-                for (int i = 0; i < quantity; i++) {
-                    products.add(factory.createRadio());
-                }
-                break;
-            default:
-                return null;
-        }
-        return products;
     }
 
     public static ElectronicsProduct getProductObjectFromSelection(String stockToIncrease) {
@@ -157,20 +126,31 @@ public class Menu {
         }
     }
 
-    public static String getProductFromSelection(String stockToIncrease) {
-        switch (stockToIncrease) {
+    public static IShippingTypeStrategy getAppropriateShippingTypeStrategy(String command) {
+        switch (command) {
             case "1":
-                return "Discount TV";
+                return new AirStandardTypeStrategy();
             case "2":
-                return "Mid-tier TV";
+                return new AirExpressTypeStrategy();
             case "3":
-                return "Designer TV";
+                return new ShipTypeStrategy();
             case "4":
-                return "Discount Radio";
-            case "5":
-                return "Mid-tier Radio";
-            case "6":
-                return "Designer Radio";
+                return new TruckTypeStrategy();
+            default:
+                return null;
+        }
+    }
+
+    public static IShippingCareStrategy getAppropriateShippingCareStrategy(String command) {
+        switch (command) {
+            case "1":
+                return new HaphazardShippingCareStrategy();
+            case "2":
+                return new StandardShippingCareStrategy();
+            case "3":
+                return new CarefulShippingCareStrategy();
+            case "4":
+                return new SuperFragileShippingCareStrategy();
             default:
                 return null;
         }
@@ -190,21 +170,19 @@ public class Menu {
     }
 
     public static void addStock(int increase, ElectronicsProduct product, Inventory inventory) {
-        // TODO
         for (int i = 0; i < increase; i++) {
             inventory.addProduct(product);
         }
-        System.out.println("Add " + product.getClass().getSimpleName() + " to " + " stock.");
-    }
-
-    public static void addToOrder(int increase, String product, ArrayList<ElectronicsProduct> products) {
-        // TODO - should return array of electronic products
-        System.out.println("Add " + increase + " " + product + "s to from stock to order.");
+        System.out.println("Add " + increase + " " + product.getClass().getSimpleName() + "s to " + "stock.");
     }
 
     // TODO
-    public static void shipIt(TEMP_Order order) {
-        System.out.println(order);
+    public static void addOrder(TEMP_Order order) {
+        System.out.println("Order:");
+        System.out.println("Size: " + order.products.size());
+        System.out.println("Type: " + order.typeStrategy.getClass().getSimpleName());
+        System.out.println("Care: " + order.careStrategy.getClass().getSimpleName());
+        System.out.println("Distance: " + order.distance);
         System.out.println("Shipping it!");
     }
 }

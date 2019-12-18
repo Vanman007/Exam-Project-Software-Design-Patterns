@@ -5,13 +5,13 @@ public class MidEndRadio extends Radio {
     public MidEndRadio(){
         connectionType = "FM/AM";
         price = 499.95;
-        weight = 17.5;
-        size = 55.75;
+        weight = 17;
+        size = 55;
         brand = "Pure";
         name = "Pop maxi";
     }
 
-    public MidEndRadio(String connectionType, double price, double weight, double size, String brand, String name){
+    public MidEndRadio(String connectionType, double price, int weight, int size, String brand, String name){
         this.connectionType = connectionType;
         this.price = price;
         this.weight = weight;

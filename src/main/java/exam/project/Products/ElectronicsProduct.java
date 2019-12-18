@@ -4,8 +4,8 @@ public abstract class ElectronicsProduct {
 
     protected double price;
     protected String name;
-    protected double weight;
-    protected double size;
+    protected int weight;
+    protected int size;
     protected String brand;
 
 }

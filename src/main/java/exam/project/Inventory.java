@@ -14,8 +14,6 @@ public class Inventory implements ISubscriber {
     private ArrayList<MidEndTV> midEndTVs = new ArrayList<>();
     private ArrayList<DesignerTV> designerTVs = new ArrayList<>();
 
-<<<<<<< HEAD
-=======
     public void addProduct(String type) {
 
     }
@@ -24,7 +22,6 @@ public class Inventory implements ISubscriber {
 
     }
 
->>>>>>> b6de56e2ecd93d41113ebd0301a05e2c1e43dd09
     @Override
     public void update() {
         System.out.println("Update on Inventory");

@@ -73,7 +73,7 @@ public class Main {
                     System.out.println("-----------");
                     System.out.println("Invalid command. Try again:");
                 } else {
-                    System.out.println("How many to add to stock?");
+                    System.out.println("How many to add to order?");
                     String commandSelection = input.next();
                     int numberOfProducts = Menu.getNumberFromInput(commandSelection);
                     System.out.println("X" + numberOfProducts);

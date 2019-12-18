@@ -183,6 +183,6 @@ public class Menu {
         System.out.println("Type: " + order.getShippingTypeStrategy().getClass().getSimpleName());
         System.out.println("Care: " + order.getShippingCareStrategy().getClass().getSimpleName());
         System.out.println("Distance: " + order.getDistance());
-        System.out.println("Shipping it!");
+        System.out.println("Add order...");
     }
 }

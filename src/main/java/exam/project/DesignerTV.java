@@ -1,4 +1,4 @@
-package exam.project.Products;
+package exam.project;
 
 public class DesignerTV extends TV {
 
@@ -6,13 +6,13 @@ public class DesignerTV extends TV {
         screenType = "Curve screen";
         resolution = "4k Ultra HD";
         price = 4999.95;
-        weight = 42.5;
-        size = 145.75;
+        weight = 42;
+        size = 145;
         brand = "B&O";
         name = "Beo curve";
     }
 
-    public DesignerTV(String screenType, String resolution, double price, double weight, double size, String brand, String name){
+    public DesignerTV(String screenType, String resolution, double price, int weight, int size, String brand, String name){
         this.screenType = screenType;
         this.resolution = resolution;
         this.price = price;

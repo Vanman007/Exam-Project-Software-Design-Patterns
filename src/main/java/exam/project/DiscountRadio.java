@@ -1,17 +1,17 @@
-package exam.project.Products;
+package exam.project;
 
 public class DiscountRadio extends Radio {
 
     public DiscountRadio(){
         connectionType = "AM";
         price = 199.95;
-        weight = 20.5;
-        size = 65.75;
+        weight = 20;
+        size = 65;
         brand = "Denver";
         name = "DenverOneTwo";
     }
 
-    public DiscountRadio(String connectionType, double price, double weight, double size, String brand, String name){
+    public DiscountRadio(String connectionType, double price, int weight, int size, String brand, String name){
         this.connectionType = connectionType;
         this.price = price;
         this.weight = weight;

@@ -1,4 +1,4 @@
-package exam.project.Products;
+package exam.project;
 
 public class MidEndTV extends TV {
 
@@ -6,13 +6,13 @@ public class MidEndTV extends TV {
         screenType = "Flatscreen";
         resolution = "Full HD";
         price = 2499.95;
-        weight = 52.5;
-        size = 175.75;
+        weight = 52;
+        size = 175;
         brand = "Samsung";
         name = "SamsungTV2019xt";
     }
 
-    public MidEndTV(String screenType, String resolution, double price, double weight, double size, String brand, String name){
+    public MidEndTV(String screenType, String resolution, double price, int weight, int size, String brand, String name){
         this.screenType = screenType;
         this.resolution = resolution;
         this.price = price;

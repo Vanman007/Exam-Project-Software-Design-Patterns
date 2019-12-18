@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class ShippingManager {
     private volatile static ShippingManager instance;
+    private ShipItemCost shipItemCost;
     private ArrayList<ISubscriber> subscribers = new ArrayList<>();
 
     private ShippingManager() {
@@ -20,14 +21,14 @@ public class ShippingManager {
         subscribers.remove(subscriber);
     }
 
-    public void notifySubscribers(Order order) {
+    public void notifySubscribers() {
         for (ISubscriber subscriber: subscribers ) {
-            subscriber.update(order);
+            subscriber.update();
         }
     }
 
-    public void ship(Order order) {
-        notifySubscribers(order);
+    public void ship() {
+        notifySubscribers();
     }
 
     // Singleton proofing

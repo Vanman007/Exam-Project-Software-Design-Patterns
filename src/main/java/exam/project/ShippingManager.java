@@ -1,5 +1,7 @@
 package exam.project;
 
+import exam.project.IShippingCareStrategy.IShippingCareStrategy;
+import exam.project.IShippingTypeStrategy.IShippingTypeStrategy;
 import exam.project.Products.*;
 
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import java.util.Map;
 public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
 
     private volatile static ShippingManager instance;
-    private ShipItemCost shipItemCost;
+    private ShipItem shipItem;
     private Map<String, Integer> currentInventoryStatus;
     private ArrayList<Order> currentOrderStatus;
     public ArrayList<ElectronicsProduct> currentInventory;
@@ -86,6 +88,8 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
                 }
             }
 
+            shipOrder(order);
+
             for(Map.Entry<String, Integer> mapEntry: tempMap.entrySet()){
                 if(currentInventoryStatus.containsKey(mapEntry.getKey())){
                     if((currentInventoryStatus.get(mapEntry.getKey()) - mapEntry.getValue()) >= 0){
@@ -137,6 +141,27 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
 //    public void ship(Order order) {
 //        notifySubscribers(order);
 //    }
+//
+//
+
+    public void shipOrder(Order order) {
+        double totalCost = 0.0;
+        IShippingTypeStrategy thisShippingTypeStrategy = order.getShippingTypeStrategy();
+        IShippingCareStrategy thisShippingCareStrategy = order.getShippingCareStrategy();
+        this.shipItem = new ShipItem(thisShippingCareStrategy, thisShippingTypeStrategy);
+        Integer thisDistance = order.getDistance();
+        ArrayList<ElectronicsProduct> thisItemsList = order.getItems();
+        for (ElectronicsProduct electronicsProduct: thisItemsList) {
+            totalCost = totalCost + this.shipItem.calculateTimeAndCost(electronicsProduct.getWeight(),
+                    electronicsProduct.getSize(),
+                    thisDistance);
+        }
+        System.out.println("\nAn order has been shipped by " + thisShippingTypeStrategy.getClass().getSimpleName() +
+                "\nand " + thisShippingCareStrategy.getClass().getSimpleName() + "!\n Total cost for " +
+                "shipping was: " + totalCost +
+                "\n");
+    }
+
 
     public void checkIfShippable() {
         // Jakob Larsen kode

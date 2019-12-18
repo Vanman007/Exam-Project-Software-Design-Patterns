@@ -3,12 +3,12 @@ package exam.project;
 import exam.project.IShippingCareStrategy.IShippingCareStrategy;
 import exam.project.IShippingTypeStrategy.IShippingTypeStrategy;
 
-public class ShipItemCost {
+public class ShipItem {
 
     private IShippingTypeStrategy iShippingTypeStrategy;
     private IShippingCareStrategy iShippingCareStrategy;
 
-    public ShipItemCost(IShippingCareStrategy iShippingCareStrategy, IShippingTypeStrategy iShippingTypeStrategy) {
+    public ShipItem(IShippingCareStrategy iShippingCareStrategy, IShippingTypeStrategy iShippingTypeStrategy) {
         this.iShippingCareStrategy = iShippingCareStrategy;
         this.iShippingTypeStrategy = iShippingTypeStrategy;
     }

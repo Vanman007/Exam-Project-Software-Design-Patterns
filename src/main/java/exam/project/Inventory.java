@@ -1,13 +1,12 @@
 package exam.project;
 
 import exam.project.Products.*;
-import exam.project.Unused.ISubscriber;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Inventory{
+public class Inventory {
 
     private volatile static Inventory instance;
 
@@ -21,11 +20,21 @@ public class Inventory{
     private ArrayList<MidEndTV> midEndTVs = new ArrayList<>();
     private ArrayList<DesignerTV> designerTVs = new ArrayList<>();
 
+    private ArrayList<ElectronicsProduct> electronicsProducts = new ArrayList<>();
+
     private Inventory(){
         // Reflection-safe
         if (instance != null) {
             throw new RuntimeException("Use getInstance() method instead.");
         }
+
+        electronicsProducts.add(new DesignerRadio());
+        electronicsProducts.add(new DesignerRadio());
+        electronicsProducts.add(new DiscountTV());
+        electronicsProducts.add(new DesignerRadio());
+        electronicsProducts.add(new DesignerRadio());
+        electronicsProducts.add(new DiscountTV());
+        notifyObservers();
     }
 
     // Singleton proofing
@@ -64,7 +73,9 @@ public class Inventory{
     }
 
     public void addProduct(ElectronicsProduct electronicsProduct) {
-
+        electronicsProducts.add(electronicsProduct);
+        System.out.println("her");
+        System.out.println(electronicsProducts.toString());
         switch (electronicsProduct.getClass().getSimpleName()){
             case "DiscountTV":
                 discountTVs.add((DiscountTV)electronicsProduct);
@@ -122,6 +133,13 @@ public class Inventory{
 
     }
 
+    public ArrayList<ElectronicsProduct> getElectronicsProducts() {
+        return electronicsProducts;
+    }
+
+    public void setElectronicsProducts(ArrayList<ElectronicsProduct> electronicsProducts) {
+        this.electronicsProducts = electronicsProducts;
+    }
 
     public Map<String,Integer> getInventoryState(){
 

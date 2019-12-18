@@ -21,6 +21,16 @@ enum MenuState {
 public class Main {
     public static void main(String[] args) {
         Inventory inventory = Inventory.getInstance();
+        OrderBook orderBook = OrderBook.getInstance();
+        ShippingManager shippingManager = ShippingManager.getInstance();
+        /*
+        ShippingManager shippingManager = ShippingManager.getInstance();
+        System.out.println(shippingManager.currentInventory.size());
+        System.out.println(shippingManager.currentOrders.size());
+        System.out.println(shippingManager.currentOrders.get(0).getItems().size());
+        shippingManager.checkIfShippable();
+*/
+
         Scanner input = new Scanner(System.in);
         boolean runApplication = true;
         MenuState menuState = MenuState.OPTION_SELECTION;

@@ -184,5 +184,6 @@ public class Menu {
         System.out.println("Care: " + order.getShippingCareStrategy().getClass().getSimpleName());
         System.out.println("Distance: " + order.getDistance());
         System.out.println("Add order...");
+        OrderBook.getInstance().addOrder(order);
     }
 }

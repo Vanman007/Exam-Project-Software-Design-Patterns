@@ -1,5 +1,9 @@
 package exam.project;
 
+import exam.project.Products.DesignerRadio;
+import exam.project.Products.DiscountTV;
+import exam.project.Products.ElectronicsProduct;
+
 import java.util.ArrayList;
 
 public class OrderBook {
@@ -7,13 +11,29 @@ public class OrderBook {
     private volatile static OrderBook instance;
 
     private ArrayList<IOrderBookObserver> orderBookObservers = new ArrayList<>();
-    private ArrayList<Order> orderBook;
+    private ArrayList<Order> orderBook = new ArrayList<>();
 
     private OrderBook(){
         // Reflection-safe
         if (instance != null) {
             throw new RuntimeException("Use getInstance() method instead.");
         }
+
+        Order tempOrder = new Order();
+        ArrayList<ElectronicsProduct> tempItems = new ArrayList<>();
+        tempItems.add(new DesignerRadio());
+        tempItems.add(new DesignerRadio());
+        tempItems.add(new DiscountTV());
+        tempOrder.setItems(tempItems);
+        Order secondTempOrder = new Order();
+        ArrayList<ElectronicsProduct>  secondTempItems = new ArrayList<>();
+        tempItems.add(new DesignerRadio());
+        tempItems.add(new DesignerRadio());
+        secondTempOrder.setItems(secondTempItems);
+        orderBook.add(tempOrder);
+        orderBook.add(secondTempOrder);
+        System.out.println(orderBook.toString());
+        notifyObservers();
     }
 
     // Singleton proofing
@@ -46,9 +66,9 @@ public class OrderBook {
     }
 
     public void addOrder(Order order) {
+        System.out.println("An order was added to the order book!");
         orderBook.add(order);
         notifyObservers();
-        System.out.println("An order was added to the order book!");
     }
 
     public void removeOrder(Order order) {

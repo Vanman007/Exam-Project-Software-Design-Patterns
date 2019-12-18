@@ -78,6 +78,8 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
                 }
             }
 
+            shipOrder(order);
+
             for(Map.Entry<String, Integer> mapEntry: tempMap.entrySet()){
                 if(currentInventoryStatus.containsKey(mapEntry.getKey())){
                     if((currentInventoryStatus.get(mapEntry.getKey()) - mapEntry.getValue()) >= 0){
@@ -144,7 +146,10 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
                     electronicsProduct.getSize(),
                     thisDistance);
         }
-        System.out.println("\nAn order has been shipped! Total cost for shipping was: " + totalCost + "\n");
+        System.out.println("\nAn order has been shipped by " + thisShippingTypeStrategy.getClass().getSimpleName() +
+                "\nand " + thisShippingCareStrategy.getClass().getSimpleName() + "!\n Total cost for " +
+                "shipping was: " + totalCost +
+                "\n");
     }
 
 

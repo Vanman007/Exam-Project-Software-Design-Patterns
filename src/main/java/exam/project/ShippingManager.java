@@ -1,6 +1,6 @@
 package exam.project;
 
-import exam.project.Products.ElectronicsProduct;
+import exam.project.Products.*;
 import exam.project.Unused.ISubscriber;
 
 import java.util.ArrayList;
@@ -63,8 +63,9 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
     public void checkIfOrderShippable(){
         for(Order order: currentOrderStatus){
             ArrayList<ElectronicsProduct> itemList = order.getItems();
+            Inventory inventory = Inventory.getInstance();
             Map<String,Integer> tempMap = new HashMap<>();
-            
+
 
             for(ElectronicsProduct electronicsProduct: itemList){
                 if(currentInventoryStatus.containsKey(electronicsProduct.getClass().getSimpleName())){
@@ -79,7 +80,31 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
             for(Map.Entry<String, Integer> mapEntry: tempMap.entrySet()){
                 if(currentInventoryStatus.containsKey(mapEntry.getKey())){
                     if((currentInventoryStatus.get(mapEntry.getKey()) - mapEntry.getValue()) >= 0){
-
+                        if(mapEntry.getKey().equals("DiscountTV")){
+                            for(int i = 0; i<mapEntry.getValue(); i++){
+                                inventory.removeProduct(new DiscountTV());
+                            }
+                        } else if(mapEntry.getKey().equals("DiscountRadio")){
+                            for(int i = 0; i<mapEntry.getValue(); i++){
+                                inventory.removeProduct(new DiscountRadio());
+                            }
+                        } else if(mapEntry.getKey().equals("MidEndTV")){
+                            for(int i = 0; i<mapEntry.getValue(); i++){
+                                inventory.removeProduct(new MidEndTV());
+                            }
+                        } else if(mapEntry.getKey().equals("MidEndRadio")){
+                            for(int i = 0; i<mapEntry.getValue(); i++){
+                                inventory.removeProduct(new MidEndRadio());
+                            }
+                        } else if(mapEntry.getKey().equals("DesignerTV")){
+                            for(int i = 0; i<mapEntry.getValue(); i++){
+                                inventory.removeProduct(new DesignerTV());
+                            }
+                        } else if(mapEntry.getKey().equals("DesignerTV")){
+                            for(int i = 0; i<mapEntry.getValue(); i++){
+                                inventory.removeProduct(new DesignerRadio());
+                            }
+                        }
                     }
                 }
             }

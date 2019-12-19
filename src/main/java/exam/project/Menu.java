@@ -4,6 +4,8 @@ import exam.project.IShippingCareStrategy.*;
 import exam.project.IShippingTypeStrategy.*;
 import exam.project.Products.*;
 
+import java.util.ArrayList;
+
 public class Menu {
     private static void printProductList() {
         System.out.println("1: Discount TV");
@@ -26,9 +28,9 @@ public class Menu {
                 printProductList();
                 break;
             case ADD_ORDER:
-                System.out.println("Which products do you wish to ship?");
+                System.out.println("Which products do you wish add to the order?");
                 printProductList();
-                System.out.println("7: All done - ship it!");
+                System.out.println("7: All done - add order!");
                 break;
             case ADD_TYPE_STRATEGY:
                 System.out.println("Choose shipping type:");
@@ -169,21 +171,21 @@ public class Menu {
         return increaseInt;
     }
 
-    public static void addStock(int increase, ElectronicsProduct product, Inventory inventory) {
-        for (int i = 0; i < increase; i++) {
-            inventory.addProduct(product);
-        }
+    public static void addStock(int increase, ElectronicsProduct product) {
         System.out.println("Add " + increase + " " + product.getClass().getSimpleName() + "s to " + "stock.");
+        ArrayList<ElectronicsProduct> productsToAdd = new ArrayList<>();
+        for (int i = 0; i < increase; i++) {
+            productsToAdd.add(product);
+        }
+        Inventory.getInstance().addProducts(productsToAdd);
     }
 
-    // TODO
     public static void addOrder(Order order) {
-        System.out.println("Order:");
+        System.out.println("\nAdding order:");
         System.out.println("Size: " + order.getItems().size());
         System.out.println("Type: " + order.getShippingTypeStrategy().getClass().getSimpleName());
         System.out.println("Care: " + order.getShippingCareStrategy().getClass().getSimpleName());
-        System.out.println("Distance: " + order.getDistance());
-        System.out.println("Add order...");
+        System.out.println("Distance: " + order.getDistance() + "\n");
         OrderBook.getInstance().addOrder(order);
     }
 }

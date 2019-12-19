@@ -11,13 +11,8 @@ import java.util.Map;
 public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
 
     private volatile static ShippingManager instance;
-    private ShipItem shipItem;
-    private Map<String, Integer> currentInventoryStatus;
-    private ArrayList<Order> currentOrderStatus;
-    public ArrayList<ElectronicsProduct> currentInventory;
-    public ArrayList<Order> currentOrders;
-
-//    private ArrayList<ISubscriber> subscribers = new ArrayList<>();
+    private ArrayList<ElectronicsProduct> currentInventory;
+    private ArrayList<Order> currentOrders;
 
     private ShippingManager() {
         // Reflection-safe
@@ -30,7 +25,6 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
         currentOrders = OrderBook.getInstance().getOrderBook();
     }
 
-    // Singleton proofing
     public static ShippingManager getInstance() {
         // Lazy-initialization
         if (instance == null) {
@@ -44,115 +38,29 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
         return instance;
     }
 
-    // Clone-safe
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException("Don't clone the singleton.");
-    }
-
-    // Serialization-safe
-    protected Object readResolve() {
-        return getInstance();
-    }
-
     @Override
     public void inventoryUpdate(Inventory inventory) {
-        System.out.println("GOT UPDATE FROM INVENTORY");
-        currentInventoryStatus = inventory.getInventoryState();
+        System.out.println("Inventory updated - checking shippable orders.");
         currentInventory = inventory.getElectronicsProducts();
-        checkIfShippable();
-        //checkIfOrderShippable();
+        checkForShippableOrders();
     }
 
     @Override
     public void orderBookUpdate(OrderBook orderBook) {
-        System.out.println("GOT UPDATE FROM ORDER BOOK");
-        currentOrderStatus = orderBook.getOrderBook();
-        checkIfOrderShippable();
+        System.out.println("Order book updated - checking shippable orders.");
+        currentOrders = orderBook.getOrderBook();
+        checkForShippableOrders();
     }
-
-    public void checkIfOrderShippable(){
-        for(Order order: currentOrderStatus){
-            ArrayList<ElectronicsProduct> itemList = order.getItems();
-            Inventory inventory = Inventory.getInstance();
-            Map<String,Integer> tempMap = new HashMap<>();
-
-
-            for(ElectronicsProduct electronicsProduct: itemList){
-                if(currentInventoryStatus.containsKey(electronicsProduct.getClass().getSimpleName())){
-                    if(!tempMap.containsKey(electronicsProduct.getClass().getSimpleName())){
-                        tempMap.put(electronicsProduct.getClass().getSimpleName(),1);
-                    } else{
-                        tempMap.put(electronicsProduct.getClass().getSimpleName(), tempMap.get(electronicsProduct.getClass().getSimpleName()) + 1);
-                    }
-                }
-            }
-
-            shipOrder(order);
-
-            for(Map.Entry<String, Integer> mapEntry: tempMap.entrySet()){
-                if(currentInventoryStatus.containsKey(mapEntry.getKey())){
-                    if((currentInventoryStatus.get(mapEntry.getKey()) - mapEntry.getValue()) >= 0){
-                        if(mapEntry.getKey().equals("DiscountTV")){
-                            for(int i = 0; i<mapEntry.getValue(); i++){
-                                inventory.removeProduct(new DiscountTV());
-                            }
-                        } else if(mapEntry.getKey().equals("DiscountRadio")){
-                            for(int i = 0; i<mapEntry.getValue(); i++){
-                                inventory.removeProduct(new DiscountRadio());
-                            }
-                        } else if(mapEntry.getKey().equals("MidEndTV")){
-                            for(int i = 0; i<mapEntry.getValue(); i++){
-                                inventory.removeProduct(new MidEndTV());
-                            }
-                        } else if(mapEntry.getKey().equals("MidEndRadio")){
-                            for(int i = 0; i<mapEntry.getValue(); i++){
-                                inventory.removeProduct(new MidEndRadio());
-                            }
-                        } else if(mapEntry.getKey().equals("DesignerTV")){
-                            for(int i = 0; i<mapEntry.getValue(); i++){
-                                inventory.removeProduct(new DesignerTV());
-                            }
-                        } else if(mapEntry.getKey().equals("DesignerTV")){
-                            for(int i = 0; i<mapEntry.getValue(); i++){
-                                inventory.removeProduct(new DesignerRadio());
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-    }
-
-//    public void subscribe(ISubscriber subscriber) {
-//        subscribers.add(subscriber);
-//    }
-//    public void unsubscribe(ISubscriber subscriber) {
-//        subscribers.remove(subscriber);
-//    }
-
-//    public void notifySubscribers(Order order) {
-//        for (ISubscriber subscriber: subscribers ) {
-//            subscriber.update(order);
-//        }
-//    }
-//
-//    public void ship(Order order) {
-//        notifySubscribers(order);
-//    }
-//
-//
 
     public void shipOrder(Order order) {
         double totalCost = 0.0;
         IShippingTypeStrategy thisShippingTypeStrategy = order.getShippingTypeStrategy();
         IShippingCareStrategy thisShippingCareStrategy = order.getShippingCareStrategy();
-        this.shipItem = new ShipItem(thisShippingCareStrategy, thisShippingTypeStrategy);
+        ShipItem shipItem = new ShipItem(thisShippingCareStrategy, thisShippingTypeStrategy);
         Integer thisDistance = order.getDistance();
         ArrayList<ElectronicsProduct> thisItemsList = order.getItems();
         for (ElectronicsProduct electronicsProduct: thisItemsList) {
-            totalCost = totalCost + this.shipItem.calculateTimeAndCost(electronicsProduct.getWeight(),
+            totalCost += shipItem.calculateTimeAndCost(electronicsProduct.getWeight(),
                     electronicsProduct.getSize(),
                     thisDistance);
         }
@@ -163,10 +71,13 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
     }
 
 
-    public void checkIfShippable() {
-        // Jakob Larsen kode
+    public void checkForShippableOrders() {
+        System.out.println("Inventory before: " + currentInventory.size());
+        System.out.println("Orders before: " + currentInventory.size());
+
         if (currentOrders != null && currentOrders.size() > 0) {
             // Loop over each order in the order book
+            ArrayList<Order> ordersToRemove = new ArrayList<>();
             for (int i = 0; i < currentOrders.size(); i++) {
                 Order currentOrder = currentOrders.get(i);
                 if (currentOrder.getItems() != null && currentOrder.getItems().size() > 0) {
@@ -215,25 +126,43 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
                     // We need to remove the products from the inventory, to account for the next order (avoid double booking)
                     if (productsFound >= productNeeded) {
                         System.out.println("Order could be created.");
-                        // TODO: Notify ShipItem
+                        shipOrder(currentOrder);
+                        // Remove the current order from the order book, and all products for that order from the inventory
                         if (electronicsProducts.size() > 0) {
-                            for (ElectronicsProduct electronicsProduct : electronicsProducts) {
-                                System.out.println(currentInventory.toString());
-                                currentInventory.remove(electronicsProduct);
-                                System.out.println(currentInventory.toString());
-                            }
-                            currentInventory.trimToSize();
+                            Inventory.getInstance().removeProducts(electronicsProducts);
+                            ordersToRemove.add(currentOrder);
+                            currentInventory = Inventory.getInstance().getElectronicsProducts();
                         }
                     } else {
                         // If there isn't the required quantity for each product,
                         // the order can't be fulfilled - move on to the next order
                         System.out.println("Order could not be created due to lack of stock.");
                     }
-
-                    System.out.println(currentInventory.toString());
+                } else {
+                    System.out.println("There are no items in this order.");
                 }
             }
+
+            // When all orders have been looped through - delete the ones that were shipped.
+            OrderBook.getInstance().removeOrders(ordersToRemove);
+            currentOrders = OrderBook.getInstance().getOrderBook();
+
+        } else {
+            System.out.println("There are no orders to check.");
         }
 
+        System.out.println("Inventory after: " + currentInventory.size());
+        System.out.println("Orders after: " + currentOrders.size());
+    }
+
+    // Clone-safe
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException("Don't clone the singleton.");
+    }
+
+    // Serialization-safe
+    protected Object readResolve() {
+        return getInstance();
     }
 }

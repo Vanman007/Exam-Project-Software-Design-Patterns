@@ -23,13 +23,6 @@ public class Main {
         Inventory inventory = Inventory.getInstance();
         OrderBook orderBook = OrderBook.getInstance();
         ShippingManager shippingManager = ShippingManager.getInstance();
-        /*
-        ShippingManager shippingManager = ShippingManager.getInstance();
-        System.out.println(shippingManager.currentInventory.size());
-        System.out.println(shippingManager.currentOrders.size());
-        System.out.println(shippingManager.currentOrders.get(0).getItems().size());
-        shippingManager.checkIfShippable();
-*/
 
         Scanner input = new Scanner(System.in);
         boolean runApplication = true;
@@ -61,8 +54,13 @@ public class Main {
                     System.out.println("How many to add to stock?");
                     int stockIncrease = Menu.getNumberFromInput(input.next());
                     ElectronicsProduct productToAdd = Menu.getProductObjectFromSelection(command);
-                    Menu.addStock(stockIncrease, productToAdd, inventory);
-                    menuState = MenuState.OPTION_SELECTION;
+                    if (productToAdd != null) {
+                        Menu.addStock(stockIncrease, productToAdd);
+                        menuState = MenuState.OPTION_SELECTION;
+                    } else {
+                        System.out.println("-----------");
+                        System.out.println("Invalid command. Try again:");
+                    }
                 }
             }
 
@@ -77,6 +75,7 @@ public class Main {
                     menuState = MenuState.ADD_TYPE_STRATEGY;
                     break;
                 }
+
                 IAbstractElectronicsFactory factory = Menu.getAppropriateFactory(command);
 
                 if (factory == null) {
@@ -86,7 +85,6 @@ public class Main {
                     System.out.println("How many to add to order?");
                     String commandSelection = input.next();
                     int numberOfProducts = Menu.getNumberFromInput(commandSelection);
-                    System.out.println("X" + numberOfProducts);
                     if (numberOfProducts == 1) {
                         switch (command) {
                             case "1":

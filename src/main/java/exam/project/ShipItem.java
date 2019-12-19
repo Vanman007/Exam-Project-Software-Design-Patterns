@@ -5,33 +5,33 @@ import exam.project.IShippingTypeStrategy.IShippingTypeStrategy;
 
 public class ShipItem {
 
-    private IShippingTypeStrategy iShippingTypeStrategy;
-    private IShippingCareStrategy iShippingCareStrategy;
+    private IShippingTypeStrategy shippingTypeStrategy;
+    private IShippingCareStrategy shippingCareStrategy;
 
-    public ShipItem(IShippingCareStrategy iShippingCareStrategy, IShippingTypeStrategy iShippingTypeStrategy) {
-        this.iShippingCareStrategy = iShippingCareStrategy;
-        this.iShippingTypeStrategy = iShippingTypeStrategy;
+    public ShipItem(IShippingCareStrategy shippingCareStrategy, IShippingTypeStrategy shippingTypeStrategy) {
+        this.shippingCareStrategy = shippingCareStrategy;
+        this.shippingTypeStrategy = shippingTypeStrategy;
     }
 
-    public IShippingTypeStrategy getiShippingTypeStrategy() {
-        return iShippingTypeStrategy;
+    public IShippingTypeStrategy getIShippingTypeStrategy() {
+        return shippingTypeStrategy;
     }
 
-    public IShippingCareStrategy getiShippingCareStrategy() {
-        return iShippingCareStrategy;
+    public IShippingCareStrategy getIShippingCareStrategy() {
+        return shippingCareStrategy;
     }
 
-    public void setiShippingTypeStrategy(IShippingTypeStrategy iShippingTypeStrategy) {
-        this.iShippingTypeStrategy = iShippingTypeStrategy;
+    public void setIShippingTypeStrategy(IShippingTypeStrategy shippingTypeStrategy) {
+        this.shippingTypeStrategy = shippingTypeStrategy;
     }
 
-    public void setiShippingCareStrategy(IShippingCareStrategy iShippingCareStrategy) {
-        this.iShippingCareStrategy = iShippingCareStrategy;
+    public void setIShippingCareStrategy(IShippingCareStrategy shippingCareStrategy) {
+        this.shippingCareStrategy = shippingCareStrategy;
     }
 
     // Use shippingTypeStrategy and shippingCareStrategy to calculate cost and return it to client
     public double calculateTimeAndCost(double weight, double size, int distance) {
-        double shippingMultiplier = this.iShippingTypeStrategy.CalculateShippingMultiplier(distance);
-        return this.iShippingCareStrategy.CalculateShippingCare(shippingMultiplier, weight, size);
+        double shippingMultiplier = this.shippingTypeStrategy.calculateShippingMultiplier(distance);
+        return this.shippingCareStrategy.calculateShippingCare(shippingMultiplier, weight, size);
     }
 }

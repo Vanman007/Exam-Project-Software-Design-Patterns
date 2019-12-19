@@ -4,7 +4,7 @@ public class ShipTypeStrategy implements IShippingTypeStrategy {
 
     private double costMultiplier = 1.5;
 
-    public double CalculateShippingMultiplier(int km){
+    public double calculateShippingMultiplier(int km){
         return costMultiplier;
     }
 }

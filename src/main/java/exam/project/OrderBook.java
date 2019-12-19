@@ -1,5 +1,9 @@
 package exam.project;
 
+import exam.project.IShippingCareStrategy.CarefulShippingCareStrategy;
+import exam.project.IShippingCareStrategy.HaphazardShippingCareStrategy;
+import exam.project.IShippingTypeStrategy.AirStandardTypeStrategy;
+import exam.project.IShippingTypeStrategy.TruckTypeStrategy;
 import exam.project.Products.DesignerRadio;
 import exam.project.Products.DiscountTV;
 import exam.project.Products.ElectronicsProduct;
@@ -7,7 +11,6 @@ import exam.project.Products.ElectronicsProduct;
 import java.util.ArrayList;
 
 public class OrderBook {
-
     private volatile static OrderBook instance;
 
     private ArrayList<IOrderBookObserver> orderBookObservers = new ArrayList<>();
@@ -19,21 +22,7 @@ public class OrderBook {
             throw new RuntimeException("Use getInstance() method instead.");
         }
 
-        Order tempOrder = new Order();
-        ArrayList<ElectronicsProduct> tempItems = new ArrayList<>();
-        tempItems.add(new DesignerRadio());
-        tempItems.add(new DesignerRadio());
-        tempItems.add(new DiscountTV());
-        tempOrder.setItems(tempItems);
-        Order secondTempOrder = new Order();
-        ArrayList<ElectronicsProduct>  secondTempItems = new ArrayList<>();
-        tempItems.add(new DesignerRadio());
-        tempItems.add(new DesignerRadio());
-        secondTempOrder.setItems(secondTempItems);
-        orderBook.add(tempOrder);
-        orderBook.add(secondTempOrder);
-        System.out.println(orderBook.toString());
-        notifyObservers();
+        insertMockData();
     }
 
     // Singleton proofing
@@ -50,15 +39,17 @@ public class OrderBook {
         return instance;
     }
 
-    // Clone-safe
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException("Don't clone the singleton.");
-    }
-
-    // Serialization-safe
-    protected Object readResolve() {
-        return getInstance();
+    private void insertMockData() {
+        ArrayList<ElectronicsProduct> tempItems = new ArrayList<>();
+        tempItems.add(new DesignerRadio());
+        tempItems.add(new DesignerRadio());
+        tempItems.add(new DiscountTV());
+        orderBook.add(new Order(tempItems, new AirStandardTypeStrategy(), new CarefulShippingCareStrategy(), 200));
+        tempItems = new ArrayList<>();
+        tempItems.add(new DesignerRadio());
+        tempItems.add(new DesignerRadio());
+        tempItems.add(new DesignerRadio());
+        orderBook.add(new Order(tempItems, new TruckTypeStrategy(), new HaphazardShippingCareStrategy(), 200));
     }
 
     public ArrayList<Order> getOrderBook() {
@@ -66,15 +57,14 @@ public class OrderBook {
     }
 
     public void addOrder(Order order) {
-        System.out.println("An order was added to the order book!");
         orderBook.add(order);
+        System.out.println("An order was added to the order book!");
         notifyObservers();
     }
 
-    public void removeOrder(Order order) {
-        orderBook.remove(order);
-        notifyObservers();
-        System.out.println("An order was deleted from the order book!");
+    public void removeOrders(ArrayList<Order> orders) {
+        orderBook.removeAll(orders);
+        System.out.println(orders.size() + " orders was removed from the order book!");
     }
 
     public void addObserver(IOrderBookObserver observer){
@@ -87,4 +77,14 @@ public class OrderBook {
         }
     }
 
+    // Clone-safe
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException("Don't clone the singleton.");
+    }
+
+    // Serialization-safe
+    protected Object readResolve() {
+        return getInstance();
+    }
 }

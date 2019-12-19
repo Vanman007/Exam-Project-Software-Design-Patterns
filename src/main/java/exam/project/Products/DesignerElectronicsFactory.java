@@ -7,7 +7,7 @@ public class DesignerElectronicsFactory implements IAbstractElectronicsFactory {
     private DesignerElectronicsFactory() {
         // Reflection-safe
         if (instance != null) {
-            throw new RuntimeException("Use getInstance() method instead.");
+            throw new RuntimeException("\nUse getInstance() method instead.\n");
         }
     }
 
@@ -39,7 +39,7 @@ public class DesignerElectronicsFactory implements IAbstractElectronicsFactory {
     // Clone-safe
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException("Don't clone the singleton.");
+        throw new CloneNotSupportedException("\nDon't clone the singleton.\n");
     }
 
     // Serialization-safe

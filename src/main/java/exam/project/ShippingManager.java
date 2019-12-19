@@ -17,7 +17,7 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
     private ShippingManager() {
         // Reflection-safe
         if (instance != null) {
-            throw new RuntimeException("Use getInstance() method instead.");
+            throw new RuntimeException("\nUse getInstance() method instead.\n");
         }
         Inventory.getInstance().addObserver(this);
         OrderBook.getInstance().addObserver(this);
@@ -40,14 +40,14 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
 
     @Override
     public void inventoryUpdate(Inventory inventory) {
-        System.out.println("Inventory updated - checking shippable orders.");
+        System.out.println("\nInventory updated - checking shippable orders.\n");
         currentInventory = inventory.getElectronicsProducts();
         checkForShippableOrders();
     }
 
     @Override
     public void orderBookUpdate(OrderBook orderBook) {
-        System.out.println("Order book updated - checking shippable orders.");
+        System.out.println("\nOrder book updated - checking shippable orders.\n");
         currentOrders = orderBook.getOrderBook();
         checkForShippableOrders();
     }
@@ -65,15 +65,15 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
                     thisDistance);
         }
         System.out.println("\nAn order has been shipped by " + thisShippingTypeStrategy.getClass().getSimpleName() +
-                "\nand " + thisShippingCareStrategy.getClass().getSimpleName() + "!\n Total cost for " +
+                "\nand " + thisShippingCareStrategy.getClass().getSimpleName() + "!\n\nTotal cost for " +
                 "shipping was: " + totalCost +
                 "\n");
     }
 
 
     public void checkForShippableOrders() {
-        System.out.println("Inventory before: " + currentInventory.size());
-        System.out.println("Orders before: " + currentInventory.size());
+        System.out.println("\nInventory before: " + currentInventory.size());
+        System.out.println("\nOrders before: " + currentInventory.size());
 
         if (currentOrders != null && currentOrders.size() > 0) {
             // Loop over each order in the order book
@@ -125,7 +125,7 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
                     // If there's the required quantity for each product, the order can be completed.
                     // We need to remove the products from the inventory, to account for the next order (avoid double booking)
                     if (productsFound >= productNeeded) {
-                        System.out.println("Order could be created.");
+                        System.out.println("\nAn order could be shipped.\n");
                         shipOrder(currentOrder);
                         // Remove the current order from the order book, and all products for that order from the inventory
                         if (electronicsProducts.size() > 0) {
@@ -136,10 +136,10 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
                     } else {
                         // If there isn't the required quantity for each product,
                         // the order can't be fulfilled - move on to the next order
-                        System.out.println("Order could not be created due to lack of stock.");
+                        System.out.println("\nAn order could not be shipped due to lack of stock.\n");
                     }
                 } else {
-                    System.out.println("There are no items in this order.");
+                    System.out.println("\nThere are no items in this order.\n");
                 }
             }
 
@@ -148,17 +148,17 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
             currentOrders = OrderBook.getInstance().getOrderBook();
 
         } else {
-            System.out.println("There are no orders to check.");
+            System.out.println("\nThere are no orders to check.\n");
         }
 
-        System.out.println("Inventory after: " + currentInventory.size());
-        System.out.println("Orders after: " + currentOrders.size());
+        System.out.println("\nInventory after: " + currentInventory.size());
+        System.out.println("\nOrders after: " + currentOrders.size());
     }
 
     // Clone-safe
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException("Don't clone the singleton.");
+        throw new CloneNotSupportedException("\nDon't clone the singleton.\n");
     }
 
     // Serialization-safe

@@ -35,7 +35,7 @@ public class Main {
                 Menu.printMenu(MenuState.OPTION_SELECTION);
                 MenuState optionSelection = Menu.getOptionState(MenuState.OPTION_SELECTION, input.next());
                 if (optionSelection == MenuState.OPTION_SELECTION) {
-                    System.out.println("Invalid command.");
+                    System.out.println("\nInvalid command.\n");
                 } else {
                     menuState = optionSelection;
                 }
@@ -48,8 +48,8 @@ public class Main {
                     menuState = MenuState.EXITING;
                     break;
                 } else if (!Menu.isValidInput(command)) {
-                    System.out.println("-----------");
-                    System.out.println("Invalid command. Try again:");
+                    System.out.println("\n-----------\n");
+                    System.out.println("\nInvalid command. Try again:\n");
                 } else {
                     System.out.println("How many to add to stock?");
                     int stockIncrease = Menu.getNumberFromInput(input.next());
@@ -58,8 +58,8 @@ public class Main {
                         Menu.addStock(stockIncrease, productToAdd);
                         menuState = MenuState.OPTION_SELECTION;
                     } else {
-                        System.out.println("-----------");
-                        System.out.println("Invalid command. Try again:");
+                        System.out.println("\n-----------\n");
+                        System.out.println("\nInvalid command. Try again:\n");
                     }
                 }
             }
@@ -79,8 +79,8 @@ public class Main {
                 IAbstractElectronicsFactory factory = Menu.getAppropriateFactory(command);
 
                 if (factory == null) {
-                    System.out.println("-----------");
-                    System.out.println("Invalid command. Try again:");
+                    System.out.println("\n-----------\n");
+                    System.out.println("\nInvalid command. Try again:\n");
                 } else {
                     System.out.println("How many to add to order?");
                     String commandSelection = input.next();
@@ -127,8 +127,8 @@ public class Main {
                 String command = input.next();
                 IShippingTypeStrategy typeStrategy = Menu.getAppropriateShippingTypeStrategy(command);
                 if (typeStrategy == null) {
-                    System.out.println("-----------");
-                    System.out.println("Invalid command. Try again:");
+                    System.out.println("\n-----------\n");
+                    System.out.println("\nInvalid command. Try again:\n");
                 } else if (command.equals("exit")) {
                     menuState = MenuState.EXITING;
                     break;
@@ -144,8 +144,8 @@ public class Main {
                 String command = input.next();
                 IShippingCareStrategy careStrategy = Menu.getAppropriateShippingCareStrategy(command);
                 if (careStrategy == null) {
-                    System.out.println("-----------");
-                    System.out.println("Invalid command. Try again:");
+                    System.out.println("\n-----------\n");
+                    System.out.println("\nInvalid command. Try again:\n");
                 } else if (command.equals("exit")) {
                     menuState = MenuState.EXITING;
                     break;
@@ -161,8 +161,8 @@ public class Main {
                 String command = input.next();
                 int distance = Menu.getNumberFromInput(command);
                 if (distance < 0) {
-                    System.out.println("-----------");
-                    System.out.println("Invalid command. Try again:");
+                    System.out.println("\n-----------\n");
+                    System.out.println("\nInvalid command. Try again:\n");
                 } else if (command.equals("exit")) {
                     menuState = MenuState.EXITING;
                     break;

@@ -15,7 +15,7 @@ public class Inventory {
     private Inventory(){
         // Reflection-safe
         if (instance != null) {
-            throw new RuntimeException("Use getInstance() method instead.");
+            throw new RuntimeException("\nUse getInstance() method instead.\n");
         }
 
         insertMockData();
@@ -70,7 +70,7 @@ public class Inventory {
     // Clone-safe
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException("Don't clone the singleton.");
+        throw new CloneNotSupportedException("\nDon't clone the singleton.\n");
     }
 
     // Serialization-safe

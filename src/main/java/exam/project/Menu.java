@@ -21,7 +21,7 @@ public class Menu {
             case OPTION_SELECTION:
                 System.out.println("Select an option:");
                 System.out.println("1: Add stock");
-                System.out.println("2: Ship order");
+                System.out.println("2: Create order");
                 break;
             case ADD_PRODUCT:
                 System.out.println("Which product do you wish to increase?");

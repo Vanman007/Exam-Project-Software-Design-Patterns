@@ -11,6 +11,7 @@ import exam.project.Products.ElectronicsProduct;
 import java.util.ArrayList;
 
 public class OrderBook {
+
     private volatile static OrderBook instance;
 
     private ArrayList<IOrderBookObserver> orderBookObservers = new ArrayList<>();
@@ -19,7 +20,7 @@ public class OrderBook {
     private OrderBook(){
         // Reflection-safe
         if (instance != null) {
-            throw new RuntimeException("Use getInstance() method instead.");
+            throw new RuntimeException("\nUse getInstance() method instead.\n");
         }
 
         insertMockData();
@@ -58,13 +59,13 @@ public class OrderBook {
 
     public void addOrder(Order order) {
         orderBook.add(order);
-        System.out.println("An order was added to the order book!");
+        System.out.println("\nAn order was added to the order book!\n");
         notifyObservers();
     }
 
     public void removeOrders(ArrayList<Order> orders) {
         orderBook.removeAll(orders);
-        System.out.println(orders.size() + " orders was removed from the order book!");
+        System.out.println("\n" + orders.size() + " order(s) were removed from the order book after shipping!\n");
     }
 
     public void addObserver(IOrderBookObserver observer){
@@ -80,7 +81,7 @@ public class OrderBook {
     // Clone-safe
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException("Don't clone the singleton.");
+        throw new CloneNotSupportedException("\nDon't clone the singleton.\n");
     }
 
     // Serialization-safe

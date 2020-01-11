@@ -23,7 +23,7 @@ public class OrderBook {
             throw new RuntimeException("\nUse getInstance() method instead.\n");
         }
 
-        insertMockData();
+        //insertMockData();
     }
 
     // Singleton proofing

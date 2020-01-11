@@ -73,7 +73,7 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
 
     public void checkForShippableOrders() {
         System.out.println("\nInventory before: " + currentInventory.size());
-        System.out.println("\nOrders before: " + currentInventory.size());
+        System.out.println("\nOrders before: " + currentOrders.size());
 
         if (currentOrders != null && currentOrders.size() > 0) {
             // Loop over each order in the order book

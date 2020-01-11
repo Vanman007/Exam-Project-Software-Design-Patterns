@@ -20,10 +20,6 @@ enum MenuState {
 
 public class Main {
     public static void main(String[] args) {
-        Inventory inventory = Inventory.getInstance();
-        OrderBook orderBook = OrderBook.getInstance();
-        ShippingManager shippingManager = ShippingManager.getInstance();
-
         Scanner input = new Scanner(System.in);
         boolean runApplication = true;
         MenuState menuState = MenuState.OPTION_SELECTION;

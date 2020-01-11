@@ -31,7 +31,8 @@ public class ShipItem {
 
     // Use shippingTypeStrategy and shippingCareStrategy to calculate cost and return it to client
     public double calculateTimeAndCost(double weight, double size, int distance) {
-        double shippingMultiplier = this.shippingTypeStrategy.calculateShippingMultiplier(distance);
-        return this.shippingCareStrategy.calculateShippingCare(shippingMultiplier, weight, size);
+        double cost = this.shippingTypeStrategy.calculateShippingMultiplier(distance); // km * shipping multiplier
+        cost += shippingCareStrategy.calculateShippingCare(weight, size); // weight + size * care multiplier
+        return cost;
     }
 }

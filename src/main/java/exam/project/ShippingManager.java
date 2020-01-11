@@ -53,17 +53,10 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
     }
 
     public void shipOrder(Order order) {
-        double totalCost = 0.0;
         IShippingTypeStrategy thisShippingTypeStrategy = order.getShippingTypeStrategy();
         IShippingCareStrategy thisShippingCareStrategy = order.getShippingCareStrategy();
         ShipItem shipItem = new ShipItem(thisShippingCareStrategy, thisShippingTypeStrategy);
-        Integer thisDistance = order.getDistance();
-        ArrayList<ElectronicsProduct> thisItemsList = order.getItems();
-        for (ElectronicsProduct electronicsProduct: thisItemsList) {
-            totalCost += shipItem.calculateTimeAndCost(electronicsProduct.getWeight(),
-                    electronicsProduct.getSize(),
-                    thisDistance);
-        }
+        double totalCost = shipItem.calculateOrderCost(order);
         System.out.println("\nAn order has been shipped by " + thisShippingTypeStrategy.getClass().getSimpleName() +
                 "\nand " + thisShippingCareStrategy.getClass().getSimpleName() + "!\n\nTotal cost for " +
                 "shipping was: " + totalCost +

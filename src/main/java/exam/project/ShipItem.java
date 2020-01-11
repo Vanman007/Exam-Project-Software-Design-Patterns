@@ -30,9 +30,14 @@ public class ShipItem {
     }
 
     // Use shippingTypeStrategy and shippingCareStrategy to calculate cost and return it to client
-    public double calculateTimeAndCost(double weight, double size, int distance) {
-        double cost = this.shippingTypeStrategy.calculateShippingMultiplier(distance); // km * shipping multiplier
-        cost += shippingCareStrategy.calculateShippingCare(weight, size); // weight + size * care multiplier
-        return cost;
+    public double calculateOrderCost(Order order) {
+        double totalCost = 0.0;
+        totalCost += shippingTypeStrategy.calculateShippingMultiplier(order.getDistance());
+        for (int i = 0; i < order.getItems().size(); i++) {
+            totalCost += shippingCareStrategy.calculateShippingCare(
+                    order.getItems().get(i).getWeight(), order.getItems().get(i).getSize()
+            );
+        }
+        return totalCost;
     }
 }

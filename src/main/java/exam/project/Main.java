@@ -25,6 +25,7 @@ public class Main {
         MenuState menuState = MenuState.OPTION_SELECTION;
 
         Order order = new Order();
+        ShippingManager shippingManager = ShippingManager.getInstance();
 
         while (runApplication) {
             while (menuState == MenuState.OPTION_SELECTION) {

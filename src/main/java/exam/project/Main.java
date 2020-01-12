@@ -50,9 +50,9 @@ public class Main {
                 } else {
                     System.out.println("How many to add to stock?");
                     int stockIncrease = Menu.getNumberFromInput(input.next());
-                    ElectronicsProduct productToAdd = Menu.getProductObjectFromSelection(command);
-                    if (productToAdd != null) {
-                        Menu.addStock(stockIncrease, productToAdd);
+                    boolean isValidProduct = Menu.isValidInput(command);
+                    if (isValidProduct) {
+                        Menu.addStock(stockIncrease, command);
                         menuState = MenuState.OPTION_SELECTION;
                     } else {
                         System.out.println("\n-----------\n");

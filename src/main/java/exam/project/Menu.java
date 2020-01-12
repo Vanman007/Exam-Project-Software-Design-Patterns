@@ -165,17 +165,20 @@ public class Menu {
         }
         try {
             increaseInt = Integer.parseInt(increase);
+            if (increaseInt < 0) {
+                return 0;
+            }
         } catch (NumberFormatException nfe) {
             return increaseInt;
         }
         return increaseInt;
     }
 
-    public static void addStock(int increase, ElectronicsProduct product) {
-        System.out.println("Add " + increase + " " + product.getClass().getSimpleName() + "s to " + "stock.");
+    public static void addStock(int increase, String productToAdd) {
+        System.out.println("Add " + increase + " of product " + productToAdd + "s to " + "stock.");
         ArrayList<ElectronicsProduct> productsToAdd = new ArrayList<>();
         for (int i = 0; i < increase; i++) {
-            productsToAdd.add(product);
+            productsToAdd.add(getProductObjectFromSelection(productToAdd));
         }
         Inventory.getInstance().addProducts(productsToAdd);
     }

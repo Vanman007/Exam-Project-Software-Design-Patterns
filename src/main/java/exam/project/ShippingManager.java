@@ -68,9 +68,8 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
         System.out.println("\nInventory before: " + currentInventory.size());
 
         System.out.println("Inventory contains:");
-        for (ElectronicsProduct product: currentInventory
-             ) {
-            System.out.println(product.getClass().getSimpleName() + ": " + product.getName());
+        for (ElectronicsProduct product: currentInventory) {
+            System.out.println(product.getClass().getSimpleName() + ": " + product.hashCode());
         }
 
         System.out.println("\nOrders before: " + currentOrders.size());
@@ -152,6 +151,12 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
         }
 
         System.out.println("\nInventory after: " + currentInventory.size());
+
+        System.out.println("Inventory contains:");
+        for (ElectronicsProduct product: currentInventory) {
+            System.out.println(product.getClass().getSimpleName() + ": " + product.hashCode());
+        }
+
         System.out.println("\nOrders after: " + currentOrders.size());
     }
 

@@ -175,7 +175,7 @@ public class Menu {
     }
 
     public static void addStock(int increase, String productToAdd) {
-        System.out.println("Add " + increase + " of product " + productToAdd + "s to " + "stock.");
+        System.out.println("Add " + increase + " of " + getProductName(productToAdd) + "s to " + "stock.");
         ArrayList<ElectronicsProduct> productsToAdd = new ArrayList<>();
         for (int i = 0; i < increase; i++) {
             productsToAdd.add(getProductObjectFromSelection(productToAdd));
@@ -190,5 +190,24 @@ public class Menu {
         System.out.println("Care: " + order.getShippingCareStrategy().getClass().getSimpleName());
         System.out.println("Distance: " + order.getDistance() + "\n");
         OrderBook.getInstance().addOrder(order);
+    }
+
+    private static String getProductName(String number) {
+        switch (number) {
+            case "1":
+                return DiscountTV.class.getSimpleName();
+            case "2":
+                return MidEndTV.class.getSimpleName();
+            case "3":
+                return DesignerTV.class.getSimpleName();
+            case "4":
+                return DiscountRadio.class.getSimpleName();
+            case "5":
+                return MidEndRadio.class.getSimpleName();
+            case "6":
+                return DesignerRadio.class.getSimpleName();
+            default:
+                return "Unknown product.";
+        }
     }
 }

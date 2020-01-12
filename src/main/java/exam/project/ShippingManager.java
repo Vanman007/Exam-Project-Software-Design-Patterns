@@ -66,6 +66,13 @@ public class ShippingManager implements IInventoryObserver, IOrderBookObserver {
 
     public void checkForShippableOrders() {
         System.out.println("\nInventory before: " + currentInventory.size());
+
+        System.out.println("Inventory contains:");
+        for (ElectronicsProduct product: currentInventory
+             ) {
+            System.out.println(product.getClass().getSimpleName() + ": " + product.getName());
+        }
+
         System.out.println("\nOrders before: " + currentOrders.size());
 
         if (currentOrders != null && currentOrders.size() > 0) {
